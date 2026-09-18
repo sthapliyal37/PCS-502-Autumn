@@ -1,0 +1,2357 @@
+\documentclass[12pt,a4paper]{report}
+
+% =========================================================
+% PACKAGES
+% =========================================================
+\usepackage[a4paper,
+            top=0.75in,
+            bottom=0.8in,
+            left=0.9in,
+            right=0.9in]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{tikz}
+\usepackage{setspace}
+\usepackage{lastpage}
+\usepackage{float}
+
+% =========================================================
+% COLORS
+% =========================================================
+\definecolor{univblue}{RGB}{20,60,110}
+\definecolor{lightblue}{RGB}{235,242,250}
+\definecolor{codebg}{RGB}{248,248,248}
+\definecolor{codegreen}{RGB}{0,110,50}
+\definecolor{codeblue}{RGB}{0,70,150}
+\definecolor{codegray}{RGB}{90,90,90}
+
+% =========================================================
+% HYPERLINK SETTINGS
+% =========================================================
+\hypersetup{
+    colorlinks=true,
+    linkcolor=univblue,
+    urlcolor=blue,
+    citecolor=univblue
+}
+
+% =========================================================
+% CODE STYLE
+% =========================================================
+\lstdefinestyle{CStyle}{
+    language=C,
+    backgroundcolor=\color{codebg},
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{codeblue}\bfseries,
+    commentstyle=\color{codegreen},
+    stringstyle=\color{red!65!black},
+    numbers=left,
+    numberstyle=\tiny\color{codegray},
+    numbersep=8pt,
+    frame=single,
+    rulecolor=\color{gray!40},
+    breaklines=true,
+    showstringspaces=false,
+    tabsize=4,
+    columns=fullflexible
+}
+
+\lstset{style=CStyle}
+
+% =========================================================
+% PAGE STYLE
+% =========================================================
+\pagestyle{fancy}
+\fancyhf{}
+
+\fancyhead[L]{\small Operating Systems Laboratory}
+\fancyhead[R]{\small Department of CSE}
+\fancyfoot[L]{\small Graphic Era Deemed to be University}
+\fancyfoot[C]{\small Page \thepage\ of \pageref{LastPage}}
+\fancyfoot[R]{\small OS Lab Manual}
+
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% =========================================================
+% SECTION FORMATTING
+% =========================================================
+\titleformat{\chapter}
+{\normalfont\huge\bfseries\color{univblue}}
+{}{0pt}{}
+
+\titleformat{\section}
+{\normalfont\Large\bfseries\color{univblue}}
+{\thesection}{0.7em}{}
+
+\titleformat{\subsection}
+{\normalfont\large\bfseries}
+{\thesubsection}{0.6em}{}
+
+% =========================================================
+% CUSTOM COMMANDS
+% =========================================================
+\newcommand{\experimenttitle}[2]{
+\clearpage
+\begin{center}
+{\Large\bfseries\color{univblue} WEEK #1}\\[0.15cm]
+\rule{\textwidth}{1pt}\\[0.2cm]
+{\LARGE\bfseries #2}\\[0.2cm]
+\rule{\textwidth}{1pt}
+\end{center}
+\vspace{0.4cm}
+}
+
+\newcommand{\labfield}[1]{
+\noindent\textbf{#1:}\hrulefill\\[0.35cm]
+}
+
+\newcommand{\terminal}[1]{
+\begin{center}
+\fbox{\parbox{0.88\textwidth}{\ttfamily #1}}
+\end{center}
+}
+
+% =========================================================
+% DOCUMENT
+% =========================================================
+\begin{document}
+
+% =========================================================
+% TITLE PAGE
+% =========================================================
+
+\begin{titlepage}
+
+\begin{center}
+
+\vspace*{0.5cm}
+
+% Uncomment and change path if university logo is available
+% \includegraphics[width=3.2cm]{geu-logo.png}\\[0.5cm]
+
+{\Large\bfseries
+GRAPHIC ERA DEEMED TO BE UNIVERSITY}\\[0.2cm]
+
+{\large
+Dehradun, Uttarakhand, India}\\[0.5cm]
+
+\rule{\textwidth}{1.2pt}
+
+\vspace{0.6cm}
+
+{\Huge\bfseries\color{univblue}
+OPERATING SYSTEMS\\
+LABORATORY MANUAL}
+
+\vspace{0.4cm}
+
+{\Large
+Practical / Laboratory Course}
+
+\vspace{0.8cm}
+
+\begin{tabular}{rl}
+\textbf{Programme:} & B.Tech. Computer Science and Engineering \\[0.25cm]
+\textbf{Department:} & Computer Science and Engineering \\[0.25cm]
+\textbf{Academic Session:} & 2026--27 \\[0.25cm]
+\textbf{Semester:} & \rule{4cm}{0.4pt} \\[0.25cm]
+\textbf{Course Code:} & \rule{4cm}{0.4pt} \\[0.25cm]
+\textbf{Course Title:} & Operating Systems Laboratory
+\end{tabular}
+
+\vfill
+
+{\large\bfseries Prepared / Coordinated By}\\[0.25cm]
+
+{\Large\bfseries Dr. Siddhant Thapliyal}\\
+Assistant Professor\\
+Department of Computer Science and Engineering
+
+\vfill
+
+\rule{0.8\textwidth}{0.6pt}\\
+{\small Department of Computer Science and Engineering\\
+Graphic Era Deemed to be University, Dehradun}
+
+\end{center}
+
+\end{titlepage}
+
+% =========================================================
+% STUDENT INFORMATION
+% =========================================================
+
+\chapter*{Student Information}
+\addcontentsline{toc}{chapter}{Student Information}
+
+\vspace{0.5cm}
+
+\labfield{Name of Student}
+\labfield{University Roll Number}
+\labfield{Student ID}
+\labfield{Programme / Branch}
+\labfield{Semester}
+\labfield{Section}
+\labfield{Batch}
+\labfield{Academic Session}
+
+\vspace{1cm}
+
+\begin{center}
+\begin{tabular}{|p{5cm}|p{5cm}|}
+\hline
+\centering\textbf{Faculty Signature} &
+\centering\arraybackslash\textbf{Student Signature} \\
+\hline
+\vspace{2cm} & \\
+\hline
+\end{tabular}
+\end{center}
+
+% =========================================================
+% CERTIFICATE
+% =========================================================
+
+\chapter*{Certificate}
+\addcontentsline{toc}{chapter}{Certificate}
+
+\vspace{1cm}
+
+\begin{center}
+\textbf{\Large CERTIFICATE}
+\end{center}
+
+\vspace{0.8cm}
+
+\onehalfspacing
+
+This is to certify that
+\underline{\hspace{7cm}},
+University Roll Number
+\underline{\hspace{4cm}},
+a student of
+\underline{\hspace{5cm}},
+has satisfactorily completed the prescribed laboratory work for the course
+\textbf{Operating Systems Laboratory} during the academic session
+\textbf{2026--27}.
+
+The experiments recorded in this laboratory manual have been performed,
+verified, and evaluated as per the prescribed curriculum of the Department
+of Computer Science and Engineering.
+
+\vspace{2cm}
+
+\begin{tabularx}{\textwidth}{X X X}
+\centering Student Signature &
+\centering Faculty In-Charge &
+\centering\arraybackslash Head of Department
+\end{tabularx}
+
+% =========================================================
+% LAB OBJECTIVES
+% =========================================================
+
+\chapter*{Objectives of the Operating Systems Laboratory}
+\addcontentsline{toc}{chapter}{Objectives of the Operating Systems Laboratory}
+
+The Operating Systems Laboratory is designed to provide practical exposure
+to fundamental operating-system concepts using C programming and a
+Unix/Linux environment.
+
+The major objectives are:
+
+\begin{enumerate}
+    \item To understand process creation and process management using
+    \texttt{fork()}.
+
+    \item To understand parent and child process relationships using
+    \texttt{getpid()} and \texttt{getppid()}.
+
+    \item To study process synchronization using \texttt{wait()} and related
+    system calls.
+
+    \item To understand orphan and zombie processes.
+
+    \item To implement Inter-Process Communication (IPC) mechanisms including:
+    \begin{itemize}
+        \item Pipes
+        \item FIFO / Named Pipes
+        \item Message Queues
+        \item Shared Memory
+        \item Semaphores
+    \end{itemize}
+
+    \item To understand program execution using the \texttt{exec()} family of
+    system calls.
+
+    \item To implement and analyze CPU scheduling algorithms.
+
+    \item To implement and analyze page replacement algorithms.
+
+    \item To develop familiarity with Unix/Linux system programming.
+
+    \item To understand how operating-system concepts are implemented through
+    practical programs.
+\end{enumerate}
+
+% =========================================================
+% PREREQUISITES
+% =========================================================
+
+\chapter*{Prerequisites}
+\addcontentsline{toc}{chapter}{Prerequisites}
+
+Students should have:
+
+\begin{itemize}
+    \item Basic knowledge of the C programming language.
+    \item Understanding of pointers, arrays, structures and functions.
+    \item Basic knowledge of process and operating-system concepts.
+    \item Familiarity with Unix/Linux commands.
+    \item Ability to create, edit, compile and execute files under Linux.
+\end{itemize}
+
+% =========================================================
+% SOFTWARE REQUIREMENTS
+% =========================================================
+
+\chapter*{Hardware and Software Requirements}
+\addcontentsline{toc}{chapter}{Hardware and Software Requirements}
+
+\section*{Operating System}
+
+Any Unix/Linux based operating system, such as:
+
+\begin{itemize}
+    \item Ubuntu Linux
+    \item Debian
+    \item Fedora
+    \item Kali Linux
+    \item Linux Mint
+    \item Windows Subsystem for Linux (WSL)
+\end{itemize}
+
+\section*{Compiler}
+
+GNU Compiler Collection (GCC).
+
+\terminal{gcc --version}
+
+\section*{Compilation}
+
+\terminal{gcc -Wall -Wextra program.c -o program}
+
+\section*{Execution}
+
+\terminal{./program}
+
+% =========================================================
+% GENERAL INSTRUCTIONS
+% =========================================================
+
+\chapter*{General Laboratory Instructions}
+\addcontentsline{toc}{chapter}{General Laboratory Instructions}
+
+\begin{enumerate}
+    \item Students must attend laboratory sessions regularly.
+
+    \item Programs must be written and executed individually unless otherwise
+    instructed.
+
+    \item Students should understand the algorithm before writing the program.
+
+    \item Predict the output before executing programs involving processes.
+
+    \item Always check the return value of important system calls.
+
+    \item Programs involving \texttt{fork()} must be executed carefully to
+    prevent uncontrolled process creation.
+
+    \item Students must maintain this laboratory manual regularly.
+
+    \item Observations and outputs should be recorded during the laboratory
+    session.
+
+    \item Plagiarized programs or reports may not be accepted.
+
+    \item Students should be prepared for viva-voce questions during each
+    experiment.
+\end{enumerate}
+
+% =========================================================
+% TABLE OF CONTENTS
+% =========================================================
+
+\tableofcontents
+
+\clearpage
+
+% =========================================================
+% INDEX
+% =========================================================
+
+\chapter*{Index of Experiments}
+\addcontentsline{toc}{chapter}{Index of Experiments}
+
+\begin{longtable}{|c|p{10cm}|c|}
+\hline
+\textbf{Week} & \textbf{Experiment} & \textbf{Signature} \\
+\hline
+
+1 &
+Demonstration of \texttt{fork()} System Call
+& \\[0.6cm]
+\hline
+
+2 &
+Parent Process Computes Sum of Odd Numbers and Child Process Computes
+Sum of Even Numbers Using \texttt{fork()}
+& \\[0.6cm]
+\hline
+
+3 &
+Demonstration of \texttt{wait()} System Call
+& \\[0.6cm]
+\hline
+
+4 &
+Implementation of Orphan Process and Zombie Process
+& \\[0.6cm]
+\hline
+
+5 &
+Implementation of Pipe
+& \\[0.6cm]
+\hline
+
+6 &
+Implementation of FIFO / Named Pipe
+& \\[0.6cm]
+\hline
+
+7 &
+Implementation of Message Queue
+& \\[0.6cm]
+\hline
+
+8 &
+Implementation of Shared Memory
+& \\[0.6cm]
+\hline
+
+9 &
+Implementation of First-Come, First-Served (FCFS) CPU Scheduling
+& \\[0.6cm]
+\hline
+
+10 &
+Implementation of Shortest Job First (SJF) CPU Scheduling
+& \\[0.6cm]
+\hline
+
+11 &
+Implementation of Priority Scheduling
+& \\[0.6cm]
+\hline
+
+12 &
+Implementation of FIFO Page Replacement Algorithm
+& \\[0.6cm]
+\hline
+
+13 &
+Implementation of Least Recently Used (LRU) Page Replacement Algorithm
+& \\[0.6cm]
+\hline
+
+\end{longtable}
+
+% =========================================================
+% WEEK 1
+% =========================================================
+
+\experimenttitle{1}{Demonstration of \texttt{fork()} System Call}
+
+\section*{Aim}
+
+To study and demonstrate process creation using the \texttt{fork()} system call
+in Unix/Linux.
+
+\section*{Learning Outcomes}
+
+After completing this experiment, the student will be able to:
+
+\begin{itemize}
+    \item Explain process creation using \texttt{fork()}.
+    \item Differentiate parent and child processes.
+    \item Interpret the return value of \texttt{fork()}.
+    \item Determine the number of processes created by multiple
+    \texttt{fork()} calls.
+\end{itemize}
+
+\section*{Theory}
+
+An existing Unix/Linux process can create another process using the
+\texttt{fork()} system call. The newly created process is called the
+\textbf{child process}, while the process that invokes \texttt{fork()} is
+called the \textbf{parent process}.
+
+The system call is invoked once but returns independently in two processes.
+
+\begin{center}
+\begin{tabular}{|c|p{8cm}|}
+\hline
+\textbf{Return Value} & \textbf{Meaning} \\
+\hline
+$<0$ & Child process creation failed. \\
+\hline
+$0$ & Code is executing in the child process. \\
+\hline
+$>0$ & Code is executing in the parent process; the returned value is the
+PID of the child. \\
+\hline
+\end{tabular}
+\end{center}
+
+Both parent and child continue execution from the statement following
+\texttt{fork()}.
+
+\section*{System Calls Used}
+
+\subsection*{\texttt{fork()}}
+
+\begin{verbatim}
+pid_t fork(void);
+\end{verbatim}
+
+Creates a child process.
+
+\subsection*{\texttt{getpid()}}
+
+\begin{verbatim}
+pid_t getpid(void);
+\end{verbatim}
+
+Returns the PID of the calling process.
+
+\subsection*{\texttt{getppid()}}
+
+\begin{verbatim}
+pid_t getppid(void);
+\end{verbatim}
+
+Returns the PID of the parent of the calling process.
+
+% ---------------------------------------------------------
+
+\section*{Program 1: Single Fork}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(void)
+{
+    pid_t pid;
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        return EXIT_FAILURE;
+    }
+
+    printf("LINUX\n");
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Expected Output}
+
+\begin{verbatim}
+LINUX
+LINUX
+\end{verbatim}
+
+\section*{Explanation}
+
+Before \texttt{fork()}, only one process exists.
+
+After one successful \texttt{fork()}:
+
+\[
+2^1 = 2
+\]
+
+processes exist. Therefore, both processes execute the statement:
+
+\begin{verbatim}
+printf("LINUX\n");
+\end{verbatim}
+
+% ---------------------------------------------------------
+
+\section*{Program 2: Identifying Parent and Child}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(void)
+{
+    pid_t pid;
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        return EXIT_FAILURE;
+    }
+    else if (pid == 0)
+    {
+        printf("Child Process\n");
+        printf("PID  = %d\n", (int)getpid());
+        printf("PPID = %d\n", (int)getppid());
+    }
+    else
+    {
+        printf("Parent Process\n");
+        printf("Parent PID = %d\n", (int)getpid());
+        printf("Child PID  = %d\n", (int)pid);
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Program 3: Multiple Forks}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <unistd.h>
+
+int main(void)
+{
+    fork();
+    printf("LINUX\n");
+
+    fork();
+    printf("UNIX\n");
+
+    fork();
+    printf("RED HAT\n");
+
+    return 0;
+}
+\end{lstlisting}
+
+\section*{Observation}
+
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+\textbf{Stage} &
+\textbf{Processes} &
+\textbf{Output Count} \\
+\hline
+After first fork & 2 & LINUX = 2 \\
+\hline
+After second fork & 4 & UNIX = 4 \\
+\hline
+After third fork & 8 & RED HAT = 8 \\
+\hline
+\end{tabular}
+\end{center}
+
+For $n$ independent successive \texttt{fork()} calls:
+
+\[
+\boxed{\text{Total Processes}=2^n}
+\]
+
+and
+
+\[
+\boxed{\text{New Child Processes}=2^n-1}
+\]
+
+\section*{Result}
+
+Process creation using single and multiple \texttt{fork()} system calls was
+successfully demonstrated.
+
+\section*{Classwork}
+
+\begin{enumerate}
+    \item Write a program that prints the PID and PPID of parent and child.
+    \item Execute two successive \texttt{fork()} calls and draw the process tree.
+    \item Modify the program so that the parent and child print different
+    messages.
+    \item Print the return value of \texttt{fork()} in both processes.
+\end{enumerate}
+
+\section*{Homework}
+
+\begin{enumerate}
+    \item Determine the number of processes created by four successive
+    \texttt{fork()} calls.
+    \item Write a program where the parent prints even numbers and the child
+    prints odd numbers.
+    \item Draw the process tree for three successive \texttt{fork()} calls.
+    \item Explain why output order may differ between executions.
+\end{enumerate}
+
+\section*{Viva Questions}
+
+\begin{enumerate}
+    \item What is \texttt{fork()}?
+    \item Why does \texttt{fork()} return twice?
+    \item What does \texttt{fork()} return to the child?
+    \item What does it return to the parent?
+    \item What is \texttt{getpid()}?
+    \item What is \texttt{getppid()}?
+    \item Why can parent and child execute in different orders?
+    \item What is Copy-on-Write?
+\end{enumerate}
+
+% =========================================================
+% WEEK 2
+% =========================================================
+
+\experimenttitle{2}
+{Parent Computes Sum of Odd Numbers and Child Computes Sum of Even Numbers}
+
+\section*{Aim}
+
+To demonstrate independent execution of parent and child processes using
+\texttt{fork()}.
+
+\section*{Theory}
+
+After \texttt{fork()}, parent and child execute independently in separate
+address spaces. Therefore, they can perform different tasks based on the return
+value of \texttt{fork()}.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+#define MAX 100
+
+int main(void)
+{
+    int a[MAX];
+    int n, i;
+    pid_t pid;
+
+    printf("Enter number of elements: ");
+    scanf("%d", &n);
+
+    if (n <= 0 || n > MAX)
+    {
+        printf("Invalid array size.\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Enter %d elements: ", n);
+
+    for (i = 0; i < n; i++)
+        scanf("%d", &a[i]);
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        return EXIT_FAILURE;
+    }
+    else if (pid == 0)
+    {
+        int evenSum = 0;
+
+        for (i = 0; i < n; i++)
+        {
+            if (a[i] % 2 == 0)
+                evenSum += a[i];
+        }
+
+        printf("Child: Sum of even numbers = %d\n",
+               evenSum);
+
+        exit(EXIT_SUCCESS);
+    }
+    else
+    {
+        int oddSum = 0;
+
+        wait(NULL);
+
+        for (i = 0; i < n; i++)
+        {
+            if (a[i] % 2 != 0)
+                oddSum += a[i];
+        }
+
+        printf("Parent: Sum of odd numbers = %d\n",
+               oddSum);
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Sample Output}
+
+\begin{verbatim}
+Enter number of elements: 6
+Enter 6 elements: 1 2 3 4 5 6
+Child: Sum of even numbers = 12
+Parent: Sum of odd numbers = 9
+\end{verbatim}
+
+\section*{Result}
+
+Parent and child processes successfully performed two different computations.
+
+\section*{Classwork}
+
+Modify the program so that the child calculates the sum and the parent
+calculates the product of array elements.
+
+\section*{Homework}
+
+Write a program where the parent finds the maximum element and the child finds
+the minimum element of an array.
+
+\section*{Viva Questions}
+
+\begin{enumerate}
+    \item Do parent and child share ordinary local variables after
+    \texttt{fork()}?
+    \item Why is \texttt{wait()} used?
+    \item What happens if \texttt{wait()} is removed?
+\end{enumerate}
+
+% =========================================================
+% WEEK 3
+% =========================================================
+
+\experimenttitle{3}{Demonstration of \texttt{wait()} System Call}
+
+\section*{Aim}
+
+To study process synchronization using the \texttt{wait()} system call.
+
+\section*{Theory}
+
+A parent process can use \texttt{wait()} to suspend its execution until one of
+its child processes terminates.
+
+\begin{verbatim}
+pid_t wait(int *status);
+\end{verbatim}
+
+If the child has already terminated, \texttt{wait()} returns immediately and
+collects the child's termination status.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void)
+{
+    pid_t pid;
+    int status;
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        return EXIT_FAILURE;
+    }
+    else if (pid == 0)
+    {
+        printf("I am Child\n");
+        printf("Child PID = %d\n", (int)getpid());
+
+        exit(5);
+    }
+    else
+    {
+        wait(&status);
+
+        printf("I am Parent\n");
+        printf("Child PID = %d\n", (int)pid);
+
+        if (WIFEXITED(status))
+        {
+            printf("Child exit status = %d\n",
+                   WEXITSTATUS(status));
+        }
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+The \texttt{wait()} system call was successfully used to synchronize the parent
+and child processes.
+
+\section*{Classwork}
+
+Remove \texttt{wait()} and execute the program five times. Record the order of
+the output.
+
+\section*{Homework}
+
+Use \texttt{waitpid()} instead of \texttt{wait()}.
+
+% =========================================================
+% WEEK 4
+% =========================================================
+
+\experimenttitle{4}{Implementation of Orphan and Zombie Processes}
+
+\section*{Part A: Orphan Process}
+
+\subsection*{Aim}
+
+To demonstrate the creation of an orphan process.
+
+\subsection*{Theory}
+
+A child process becomes an orphan when its original parent terminates before
+the child completes execution. The operating system subsequently re-parents
+the child.
+
+\subsection*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(void)
+{
+    pid_t pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        return EXIT_FAILURE;
+    }
+
+    if (pid == 0)
+    {
+        printf("Child before parent termination\n");
+        printf("PID = %d, PPID = %d\n",
+               (int)getpid(),
+               (int)getppid());
+
+        sleep(5);
+
+        printf("Child after parent termination\n");
+        printf("PID = %d, PPID = %d\n",
+               (int)getpid(),
+               (int)getppid());
+    }
+    else
+    {
+        printf("Parent PID = %d\n", (int)getpid());
+        printf("Parent is terminating.\n");
+        exit(EXIT_SUCCESS);
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Part B: Zombie Process}
+
+\subsection*{Theory}
+
+A zombie process is a child that has completed execution but still has an entry
+in the process table because its parent has not collected its termination
+status.
+
+\subsection*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main(void)
+{
+    pid_t pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork failed");
+        return EXIT_FAILURE;
+    }
+
+    if (pid == 0)
+    {
+        printf("Child terminating...\n");
+        exit(EXIT_SUCCESS);
+    }
+    else
+    {
+        printf("Parent sleeping for 20 seconds...\n");
+        sleep(20);
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+During the parent's sleep, execute:
+
+\terminal{ps -el | grep Z}
+
+\section*{Result}
+
+Orphan and zombie process behavior was successfully observed.
+
+\section*{Viva Questions}
+
+\begin{enumerate}
+    \item What is an orphan process?
+    \item What is a zombie process?
+    \item Is a zombie process still executing?
+    \item How can a zombie process be removed?
+    \item What is the role of \texttt{wait()}?
+\end{enumerate}
+
+% =========================================================
+% WEEK 5
+% =========================================================
+
+\experimenttitle{5}{Implementation of Pipe}
+
+\section*{Aim}
+
+To implement Inter-Process Communication using an unnamed pipe.
+
+\section*{Theory}
+
+A pipe provides a unidirectional communication channel.
+
+\begin{verbatim}
+int pipe(int fd[2]);
+\end{verbatim}
+
+where:
+
+\begin{itemize}
+    \item \texttt{fd[0]} is the read end.
+    \item \texttt{fd[1]} is the write end.
+\end{itemize}
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void)
+{
+    int fd[2];
+    pid_t pid;
+    char message[] = "Graphic Era";
+    char buffer[100];
+
+    if (pipe(fd) == -1)
+    {
+        perror("pipe");
+        return EXIT_FAILURE;
+    }
+
+    pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork");
+        return EXIT_FAILURE;
+    }
+
+    if (pid == 0)
+    {
+        close(fd[0]);
+
+        write(fd[1],
+              message,
+              strlen(message) + 1);
+
+        printf("Child wrote: %s\n", message);
+
+        close(fd[1]);
+        exit(EXIT_SUCCESS);
+    }
+    else
+    {
+        close(fd[1]);
+
+        read(fd[0],
+             buffer,
+             sizeof(buffer));
+
+        printf("Parent read: %s\n", buffer);
+
+        close(fd[0]);
+        wait(NULL);
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+Communication between parent and child using a pipe was successfully
+implemented.
+
+% =========================================================
+% WEEK 6
+% =========================================================
+
+\experimenttitle{6}{Implementation of FIFO / Named Pipe}
+
+\section*{Aim}
+
+To implement communication between processes using FIFO.
+
+\section*{Theory}
+
+A FIFO is a named pipe. Unlike an unnamed pipe, it can be used by unrelated
+processes.
+
+It may be created using:
+
+\begin{verbatim}
+mkfifo("myfifo", 0666);
+\end{verbatim}
+
+\section*{Writer Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(void)
+{
+    int fd;
+    char message[100];
+
+    mkfifo("myfifo", 0666);
+
+    fd = open("myfifo", O_WRONLY);
+
+    if (fd == -1)
+    {
+        perror("open");
+        return EXIT_FAILURE;
+    }
+
+    printf("Enter message: ");
+    fgets(message, sizeof(message), stdin);
+
+    write(fd, message, strlen(message) + 1);
+
+    close(fd);
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Reader Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+int main(void)
+{
+    int fd;
+    char buffer[100];
+
+    fd = open("myfifo", O_RDONLY);
+
+    if (fd == -1)
+    {
+        perror("open");
+        return EXIT_FAILURE;
+    }
+
+    read(fd, buffer, sizeof(buffer));
+
+    printf("Received: %s", buffer);
+
+    close(fd);
+    unlink("myfifo");
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Execution}
+
+Open two terminals.
+
+\textbf{Terminal 1:}
+
+\terminal{./reader}
+
+\textbf{Terminal 2:}
+
+\terminal{./writer}
+
+\section*{Result}
+
+Inter-process communication using FIFO was successfully demonstrated.
+
+% =========================================================
+% WEEK 7
+% =========================================================
+
+\experimenttitle{7}{Implementation of Message Queue}
+
+\section*{Aim}
+
+To implement Inter-Process Communication using System V message queues.
+
+\section*{Important Functions}
+
+\begin{itemize}
+    \item \texttt{ftok()} -- Generates an IPC key.
+    \item \texttt{msgget()} -- Creates or accesses a message queue.
+    \item \texttt{msgsnd()} -- Sends a message.
+    \item \texttt{msgrcv()} -- Receives a message.
+    \item \texttt{msgctl()} -- Controls or removes the queue.
+\end{itemize}
+
+\section*{Sender}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+
+struct message
+{
+    long type;
+    char text[100];
+};
+
+int main(void)
+{
+    key_t key;
+    int msgid;
+    struct message msg;
+
+    key = ftok(".", 'A');
+
+    msgid = msgget(key, 0666 | IPC_CREAT);
+
+    if (msgid == -1)
+    {
+        perror("msgget");
+        return EXIT_FAILURE;
+    }
+
+    msg.type = 1;
+
+    printf("Enter message: ");
+    fgets(msg.text, sizeof(msg.text), stdin);
+
+    msgsnd(msgid,
+           &msg,
+           strlen(msg.text) + 1,
+           0);
+
+    printf("Message sent.\n");
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Receiver}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
+
+struct message
+{
+    long type;
+    char text[100];
+};
+
+int main(void)
+{
+    key_t key;
+    int msgid;
+    struct message msg;
+
+    key = ftok(".", 'A');
+
+    msgid = msgget(key, 0666 | IPC_CREAT);
+
+    if (msgid == -1)
+    {
+        perror("msgget");
+        return EXIT_FAILURE;
+    }
+
+    msgrcv(msgid,
+           &msg,
+           sizeof(msg.text),
+           1,
+           0);
+
+    printf("Received: %s", msg.text);
+
+    msgctl(msgid, IPC_RMID, NULL);
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+Communication using message queues was successfully implemented.
+
+% =========================================================
+% WEEK 8
+% =========================================================
+
+\experimenttitle{8}{Implementation of Shared Memory}
+
+\section*{Aim}
+
+To implement Inter-Process Communication using shared memory.
+
+\section*{Theory}
+
+Shared memory enables multiple processes to access a common memory segment.
+
+Important system calls are:
+
+\begin{itemize}
+    \item \texttt{ftok()}
+    \item \texttt{shmget()}
+    \item \texttt{shmat()}
+    \item \texttt{shmdt()}
+    \item \texttt{shmctl()}
+\end{itemize}
+
+\section*{Writer}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+
+int main(void)
+{
+    key_t key;
+    int shmid;
+    char *shared;
+
+    key = ftok(".", 'S');
+
+    shmid = shmget(key,
+                   1024,
+                   0666 | IPC_CREAT);
+
+    if (shmid == -1)
+    {
+        perror("shmget");
+        return EXIT_FAILURE;
+    }
+
+    shared = (char *)shmat(shmid, NULL, 0);
+
+    if (shared == (char *)-1)
+    {
+        perror("shmat");
+        return EXIT_FAILURE;
+    }
+
+    printf("Enter data: ");
+    fgets(shared, 1024, stdin);
+
+    printf("Data written to shared memory.\n");
+
+    shmdt(shared);
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Reader}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <sys/ipc.h>
+#include <sys/shm.h>
+
+int main(void)
+{
+    key_t key;
+    int shmid;
+    char *shared;
+
+    key = ftok(".", 'S');
+
+    shmid = shmget(key,
+                   1024,
+                   0666);
+
+    if (shmid == -1)
+    {
+        perror("shmget");
+        return EXIT_FAILURE;
+    }
+
+    shared = (char *)shmat(shmid, NULL, 0);
+
+    if (shared == (char *)-1)
+    {
+        perror("shmat");
+        return EXIT_FAILURE;
+    }
+
+    printf("Data received: %s", shared);
+
+    shmdt(shared);
+
+    shmctl(shmid,
+           IPC_RMID,
+           NULL);
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+Shared-memory based Inter-Process Communication was successfully implemented.
+
+% =========================================================
+% WEEK 9
+% =========================================================
+
+\experimenttitle{9}{First-Come, First-Served (FCFS) CPU Scheduling}
+
+\section*{Aim}
+
+To implement the FCFS CPU scheduling algorithm and calculate waiting time and
+turnaround time.
+
+\section*{Theory}
+
+FCFS is a non-preemptive scheduling algorithm in which processes are executed
+in order of arrival.
+
+\[
+TAT = CT - AT
+\]
+
+\[
+WT = TAT - BT
+\]
+
+where:
+
+\begin{itemize}
+    \item $TAT$ = Turnaround Time
+    \item $CT$ = Completion Time
+    \item $AT$ = Arrival Time
+    \item $WT$ = Waiting Time
+    \item $BT$ = Burst Time
+\end{itemize}
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void)
+{
+    int n, i;
+    int bt[20], wt[20], tat[20];
+    float avgWT = 0.0;
+    float avgTAT = 0.0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    printf("Enter burst times:\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("P%d: ", i + 1);
+        scanf("%d", &bt[i]);
+    }
+
+    wt[0] = 0;
+
+    for (i = 1; i < n; i++)
+        wt[i] = wt[i - 1] + bt[i - 1];
+
+    for (i = 0; i < n; i++)
+    {
+        tat[i] = wt[i] + bt[i];
+        avgWT += wt[i];
+        avgTAT += tat[i];
+    }
+
+    printf("\nProcess\tBT\tWT\tTAT\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("P%d\t%d\t%d\t%d\n",
+               i + 1,
+               bt[i],
+               wt[i],
+               tat[i]);
+    }
+
+    printf("\nAverage Waiting Time = %.2f\n",
+           avgWT / n);
+
+    printf("Average Turnaround Time = %.2f\n",
+           avgTAT / n);
+
+    return 0;
+}
+\end{lstlisting}
+
+\section*{Classwork}
+
+Execute FCFS for:
+
+\begin{center}
+\begin{tabular}{|c|c|}
+\hline
+Process & Burst Time \\
+\hline
+P1 & 24 \\
+P2 & 3 \\
+P3 & 3 \\
+\hline
+\end{tabular}
+\end{center}
+
+\section*{Result}
+
+FCFS scheduling was successfully implemented.
+
+% =========================================================
+% WEEK 10
+% =========================================================
+
+\experimenttitle{10}{Shortest Job First (SJF) CPU Scheduling}
+
+\section*{Aim}
+
+To implement non-preemptive SJF scheduling.
+
+\section*{Theory}
+
+SJF chooses the ready process with the shortest CPU burst.
+
+For a fixed set of processes available simultaneously, SJF minimizes average
+waiting time.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void)
+{
+    int n, i, j;
+    int bt[20];
+    int pid[20];
+    int wt[20];
+    int tat[20];
+
+    float avgWT = 0.0;
+    float avgTAT = 0.0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++)
+    {
+        pid[i] = i + 1;
+
+        printf("Enter burst time for P%d: ",
+               i + 1);
+
+        scanf("%d", &bt[i]);
+    }
+
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = i + 1; j < n; j++)
+        {
+            if (bt[i] > bt[j])
+            {
+                int temp;
+
+                temp = bt[i];
+                bt[i] = bt[j];
+                bt[j] = temp;
+
+                temp = pid[i];
+                pid[i] = pid[j];
+                pid[j] = temp;
+            }
+        }
+    }
+
+    wt[0] = 0;
+
+    for (i = 1; i < n; i++)
+        wt[i] = wt[i - 1] + bt[i - 1];
+
+    for (i = 0; i < n; i++)
+    {
+        tat[i] = wt[i] + bt[i];
+
+        avgWT += wt[i];
+        avgTAT += tat[i];
+    }
+
+    printf("\nProcess\tBT\tWT\tTAT\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("P%d\t%d\t%d\t%d\n",
+               pid[i],
+               bt[i],
+               wt[i],
+               tat[i]);
+    }
+
+    printf("\nAverage WT = %.2f\n",
+           avgWT / n);
+
+    printf("Average TAT = %.2f\n",
+           avgTAT / n);
+
+    return 0;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+Non-preemptive SJF scheduling was successfully implemented.
+
+% =========================================================
+% WEEK 11
+% =========================================================
+
+\experimenttitle{11}{Priority Scheduling}
+
+\section*{Aim}
+
+To implement non-preemptive Priority Scheduling.
+
+\section*{Theory}
+
+Each process is assigned a priority. The CPU is allocated to the process with
+the highest priority.
+
+In this implementation:
+
+\[
+\text{Smaller priority number} =
+\text{Higher priority}
+\]
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void)
+{
+    int n, i, j;
+
+    int pid[20];
+    int bt[20];
+    int priority[20];
+    int wt[20];
+    int tat[20];
+
+    float avgWT = 0.0;
+    float avgTAT = 0.0;
+
+    printf("Enter number of processes: ");
+    scanf("%d", &n);
+
+    for (i = 0; i < n; i++)
+    {
+        pid[i] = i + 1;
+
+        printf("P%d burst time: ", i + 1);
+        scanf("%d", &bt[i]);
+
+        printf("P%d priority: ", i + 1);
+        scanf("%d", &priority[i]);
+    }
+
+    for (i = 0; i < n - 1; i++)
+    {
+        for (j = i + 1; j < n; j++)
+        {
+            if (priority[i] > priority[j])
+            {
+                int temp;
+
+                temp = priority[i];
+                priority[i] = priority[j];
+                priority[j] = temp;
+
+                temp = bt[i];
+                bt[i] = bt[j];
+                bt[j] = temp;
+
+                temp = pid[i];
+                pid[i] = pid[j];
+                pid[j] = temp;
+            }
+        }
+    }
+
+    wt[0] = 0;
+
+    for (i = 1; i < n; i++)
+        wt[i] = wt[i - 1] + bt[i - 1];
+
+    for (i = 0; i < n; i++)
+    {
+        tat[i] = wt[i] + bt[i];
+
+        avgWT += wt[i];
+        avgTAT += tat[i];
+    }
+
+    printf("\nPID\tPriority\tBT\tWT\tTAT\n");
+
+    for (i = 0; i < n; i++)
+    {
+        printf("P%d\t%d\t\t%d\t%d\t%d\n",
+               pid[i],
+               priority[i],
+               bt[i],
+               wt[i],
+               tat[i]);
+    }
+
+    printf("\nAverage WT = %.2f\n",
+           avgWT / n);
+
+    printf("Average TAT = %.2f\n",
+           avgTAT / n);
+
+    return 0;
+}
+\end{lstlisting}
+
+\section*{Discussion}
+
+A major problem with priority scheduling is \textbf{starvation}. A process with
+low priority may wait indefinitely.
+
+A common solution is \textbf{aging}, in which the priority of a waiting process
+is gradually increased.
+
+\section*{Result}
+
+Priority Scheduling was successfully implemented.
+
+% =========================================================
+% WEEK 12
+% =========================================================
+
+\experimenttitle{12}{FIFO Page Replacement Algorithm}
+
+\section*{Aim}
+
+To implement the FIFO page replacement algorithm and calculate the number of
+page faults.
+
+\section*{Theory}
+
+FIFO replaces the page that entered memory earliest.
+
+The frames can conceptually be treated as a queue.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void)
+{
+    int pages[100];
+    int frames[20];
+
+    int n, f;
+    int i, j;
+
+    int pointer = 0;
+    int faults = 0;
+
+    printf("Enter reference string length: ");
+    scanf("%d", &n);
+
+    printf("Enter reference string:\n");
+
+    for (i = 0; i < n; i++)
+        scanf("%d", &pages[i]);
+
+    printf("Enter number of frames: ");
+    scanf("%d", &f);
+
+    for (i = 0; i < f; i++)
+        frames[i] = -1;
+
+    printf("\nPage\tFrames\n");
+
+    for (i = 0; i < n; i++)
+    {
+        int found = 0;
+
+        for (j = 0; j < f; j++)
+        {
+            if (frames[j] == pages[i])
+            {
+                found = 1;
+                break;
+            }
+        }
+
+        if (!found)
+        {
+            frames[pointer] = pages[i];
+
+            pointer = (pointer + 1) % f;
+
+            faults++;
+        }
+
+        printf("%d\t", pages[i]);
+
+        for (j = 0; j < f; j++)
+        {
+            if (frames[j] == -1)
+                printf("- ");
+            else
+                printf("%d ", frames[j]);
+        }
+
+        printf("\n");
+    }
+
+    printf("\nTotal Page Faults = %d\n",
+           faults);
+
+    return 0;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+FIFO page replacement was successfully implemented and page faults were
+calculated.
+
+% =========================================================
+% WEEK 13
+% =========================================================
+
+\experimenttitle{13}{Least Recently Used (LRU) Page Replacement Algorithm}
+
+\section*{Aim}
+
+To implement the Least Recently Used page replacement algorithm.
+
+\section*{Theory}
+
+LRU replaces the page that has not been referenced for the longest period of
+time.
+
+The algorithm attempts to approximate the locality of reference exhibited by
+programs.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+
+int main(void)
+{
+    int pages[100];
+    int frames[20];
+    int lastUsed[20];
+
+    int n, f;
+    int i, j;
+
+    int faults = 0;
+    int time = 0;
+
+    printf("Enter reference string length: ");
+    scanf("%d", &n);
+
+    printf("Enter reference string:\n");
+
+    for (i = 0; i < n; i++)
+        scanf("%d", &pages[i]);
+
+    printf("Enter number of frames: ");
+    scanf("%d", &f);
+
+    for (i = 0; i < f; i++)
+    {
+        frames[i] = -1;
+        lastUsed[i] = -1;
+    }
+
+    printf("\nPage\tFrames\n");
+
+    for (i = 0; i < n; i++)
+    {
+        int found = -1;
+
+        time++;
+
+        for (j = 0; j < f; j++)
+        {
+            if (frames[j] == pages[i])
+            {
+                found = j;
+                break;
+            }
+        }
+
+        if (found != -1)
+        {
+            lastUsed[found] = time;
+        }
+        else
+        {
+            int position = -1;
+
+            for (j = 0; j < f; j++)
+            {
+                if (frames[j] == -1)
+                {
+                    position = j;
+                    break;
+                }
+            }
+
+            if (position == -1)
+            {
+                position = 0;
+
+                for (j = 1; j < f; j++)
+                {
+                    if (lastUsed[j] <
+                        lastUsed[position])
+                    {
+                        position = j;
+                    }
+                }
+            }
+
+            frames[position] = pages[i];
+            lastUsed[position] = time;
+
+            faults++;
+        }
+
+        printf("%d\t", pages[i]);
+
+        for (j = 0; j < f; j++)
+        {
+            if (frames[j] == -1)
+                printf("- ");
+            else
+                printf("%d ", frames[j]);
+        }
+
+        printf("\n");
+    }
+
+    printf("\nTotal Page Faults = %d\n",
+           faults);
+
+    return 0;
+}
+\end{lstlisting}
+
+\section*{Result}
+
+LRU page replacement was successfully implemented.
+
+% =========================================================
+% ADDITIONAL EXPERIMENT 1
+% =========================================================
+
+\chapter*{Additional Experiment: \texttt{fork()} and \texttt{exec()}}
+\addcontentsline{toc}{chapter}
+{Additional Experiment: fork() and exec()}
+
+\section*{Aim}
+
+To create a child using \texttt{fork()} and execute another program using
+\texttt{execl()}.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void)
+{
+    pid_t pid = fork();
+
+    if (pid < 0)
+    {
+        perror("fork");
+        return EXIT_FAILURE;
+    }
+
+    if (pid == 0)
+    {
+        printf("Child executing date command:\n");
+
+        execl("/bin/date",
+              "date",
+              NULL);
+
+        perror("execl");
+        _exit(EXIT_FAILURE);
+    }
+    else
+    {
+        wait(NULL);
+
+        printf("Parent executing ls -l:\n");
+
+        execl("/bin/ls",
+              "ls",
+              "-l",
+              NULL);
+
+        perror("execl");
+    }
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+% =========================================================
+% ADDITIONAL EXPERIMENT 2
+% =========================================================
+
+\chapter*{Additional Experiment: Implementation of \texttt{ls | wc}}
+\addcontentsline{toc}{chapter}
+{Additional Experiment: Implementation of ls | wc}
+
+\section*{Aim}
+
+To implement a Unix pipeline equivalent to:
+
+\begin{verbatim}
+ls | wc
+\end{verbatim}
+
+using \texttt{pipe()}, \texttt{fork()}, \texttt{dup2()} and \texttt{exec()}.
+
+\section*{Program}
+
+\begin{lstlisting}
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
+int main(void)
+{
+    int fd[2];
+    pid_t pid1, pid2;
+
+    if (pipe(fd) == -1)
+    {
+        perror("pipe");
+        return EXIT_FAILURE;
+    }
+
+    pid1 = fork();
+
+    if (pid1 == -1)
+    {
+        perror("fork");
+        return EXIT_FAILURE;
+    }
+
+    if (pid1 == 0)
+    {
+        dup2(fd[1], STDOUT_FILENO);
+
+        close(fd[0]);
+        close(fd[1]);
+
+        execl("/bin/ls",
+              "ls",
+              NULL);
+
+        perror("execl ls");
+        _exit(EXIT_FAILURE);
+    }
+
+    pid2 = fork();
+
+    if (pid2 == -1)
+    {
+        perror("fork");
+        return EXIT_FAILURE;
+    }
+
+    if (pid2 == 0)
+    {
+        dup2(fd[0], STDIN_FILENO);
+
+        close(fd[0]);
+        close(fd[1]);
+
+        execl("/usr/bin/wc",
+              "wc",
+              NULL);
+
+        perror("execl wc");
+        _exit(EXIT_FAILURE);
+    }
+
+    close(fd[0]);
+    close(fd[1]);
+
+    waitpid(pid1, NULL, 0);
+    waitpid(pid2, NULL, 0);
+
+    return EXIT_SUCCESS;
+}
+\end{lstlisting}
+
+% =========================================================
+% COMMON VIVA
+% =========================================================
+
+\chapter*{Comprehensive Viva-Voce Questions}
+\addcontentsline{toc}{chapter}{Comprehensive Viva-Voce Questions}
+
+\begin{enumerate}
+
+    \item What is a process?
+
+    \item Differentiate between a program and a process.
+
+    \item What is a Process Control Block?
+
+    \item What is a PID?
+
+    \item What is a PPID?
+
+    \item Explain the \texttt{fork()} system call.
+
+    \item Why does \texttt{fork()} return twice?
+
+    \item What is Copy-on-Write?
+
+    \item What is the purpose of \texttt{wait()}?
+
+    \item Differentiate between \texttt{wait()} and \texttt{waitpid()}.
+
+    \item What is a zombie process?
+
+    \item What is an orphan process?
+
+    \item What is Inter-Process Communication?
+
+    \item Differentiate between pipe and FIFO.
+
+    \item What are the two file descriptors returned by \texttt{pipe()}?
+
+    \item What is shared memory?
+
+    \item Why is shared memory generally fast?
+
+    \item What is a message queue?
+
+    \item Explain \texttt{msgsnd()} and \texttt{msgrcv()}.
+
+    \item What is \texttt{exec()}?
+
+    \item Does \texttt{exec()} create a new process?
+
+    \item What happens to PID after a successful \texttt{exec()}?
+
+    \item What is CPU scheduling?
+
+    \item Differentiate preemptive and non-preemptive scheduling.
+
+    \item Explain FCFS scheduling.
+
+    \item What is the convoy effect?
+
+    \item Explain SJF scheduling.
+
+    \item Why is SJF considered optimal?
+
+    \item What is starvation?
+
+    \item How can aging prevent starvation?
+
+    \item What is virtual memory?
+
+    \item What is a page fault?
+
+    \item Explain FIFO page replacement.
+
+    \item What is Belady's anomaly?
+
+    \item Explain LRU page replacement.
+
+    \item Differentiate FIFO and LRU page replacement.
+
+\end{enumerate}
+
+% =========================================================
+% LAB EVALUATION SHEET
+% =========================================================
+
+\chapter*{Laboratory Evaluation Record}
+\addcontentsline{toc}{chapter}{Laboratory Evaluation Record}
+
+\begin{longtable}{|c|p{6cm}|c|c|c|c|}
+\hline
+
+\textbf{Week} &
+\textbf{Experiment} &
+\textbf{Code} &
+\textbf{Execution} &
+\textbf{Viva} &
+\textbf{Signature}
+\\
+\hline
+
+1 & fork() & & & & \\[0.7cm]\hline
+2 & Parent/Child Computation & & & & \\[0.7cm]\hline
+3 & wait() & & & & \\[0.7cm]\hline
+4 & Orphan/Zombie & & & & \\[0.7cm]\hline
+5 & Pipe & & & & \\[0.7cm]\hline
+6 & FIFO & & & & \\[0.7cm]\hline
+7 & Message Queue & & & & \\[0.7cm]\hline
+8 & Shared Memory & & & & \\[0.7cm]\hline
+9 & FCFS & & & & \\[0.7cm]\hline
+10 & SJF & & & & \\[0.7cm]\hline
+11 & Priority Scheduling & & & & \\[0.7cm]\hline
+12 & FIFO Page Replacement & & & & \\[0.7cm]\hline
+13 & LRU Page Replacement & & & & \\[0.7cm]\hline
+
+\end{longtable}
+
+% =========================================================
+% REFERENCES
+% =========================================================
+
+\chapter*{References}
+\addcontentsline{toc}{chapter}{References}
+
+\begin{enumerate}
+
+    \item Abraham Silberschatz, Peter B. Galvin and Greg Gagne,
+    \textit{Operating System Concepts}, Wiley.
+
+    \item Andrew S. Tanenbaum and Herbert Bos,
+    \textit{Modern Operating Systems}, Pearson.
+
+    \item W. Richard Stevens and Stephen A. Rago,
+    \textit{Advanced Programming in the UNIX Environment},
+    Addison-Wesley.
+
+    \item Michael Kerrisk,
+    \textit{The Linux Programming Interface},
+    No Starch Press.
+
+    \item Linux Programmer's Manual:
+    \texttt{fork(2)}, \texttt{wait(2)}, \texttt{pipe(2)},
+    \texttt{execve(2)}, \texttt{msgget(2)}, and
+    \texttt{shmget(2)}.
+
+\end{enumerate}
+
+% =========================================================
+% END
+% =========================================================
+
+\end{document}

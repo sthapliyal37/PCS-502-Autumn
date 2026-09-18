@@ -1,0 +1,224 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{titlesec}
+
+\definecolor{codegreen}{RGB}{0,120,0}
+\definecolor{codegray}{RGB}{100,100,100}
+
+\lstset{
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{blue},
+    commentstyle=\color{codegreen},
+    numberstyle=\tiny\color{codegray},
+    numbers=left,
+    frame=single,
+    breaklines=true,
+    showstringspaces=false
+}
+
+\title{\textbf{Operating Systems Laboratory}\\
+Week--1 Practice Sheet\\
+\Large Demonstration of \texttt{fork()} System Call}
+\author{}
+\date{}
+
+\begin{document}
+
+\maketitle
+
+\section*{Instructions}
+
+\begin{itemize}
+    \item Write all programs in C under a Linux environment.
+    \item Compile each program using:
+\begin{lstlisting}
+gcc filename.c -o output
+./output
+\end{lstlisting}
+    \item Predict the output before execution.
+    \item Draw the process tree wherever applicable.
+    \item Write suitable comments in every program.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Classwork}
+
+\begin{enumerate}
+
+\item Write a program using \texttt{fork()} to create a single child process. Display:
+\begin{itemize}
+    \item Process ID (PID)
+    \item Parent Process ID (PPID)
+    \item Return value of \texttt{fork()}
+\end{itemize}
+
+\item Write a program that prints:
+\begin{itemize}
+    \item ``I am Parent Process''
+    \item ``I am Child Process''
+\end{itemize}
+using the return value of \texttt{fork()}.
+
+\item Write a program that creates one child process and displays the process hierarchy using \texttt{getpid()} and \texttt{getppid()}.
+
+\item Execute the following program and predict the output before running.
+
+\begin{lstlisting}
+fork();
+printf("Operating System Lab\n");
+\end{lstlisting}
+
+Explain why the output is printed twice.
+
+\item Write a program containing:
+
+\begin{lstlisting}
+fork();
+fork();
+\end{lstlisting}
+
+Predict:
+\begin{itemize}
+    \item Total number of processes created.
+    \item Number of output lines.
+    \item Draw the corresponding process tree.
+\end{itemize}
+
+\item Execute the following program and verify the output.
+
+\begin{lstlisting}
+fork();
+fork();
+fork();
+printf("Linux\n");
+\end{lstlisting}
+
+Determine:
+\begin{itemize}
+    \item Number of processes.
+    \item Number of times ``Linux'' is printed.
+\end{itemize}
+
+\item Write a program in which:
+\begin{itemize}
+    \item Child prints numbers from 1 to 5.
+    \item Parent waits for the child using \texttt{wait()}.
+    \item Parent prints ``Child Completed''.
+\end{itemize}
+
+\item Modify the previous program by removing \texttt{wait()}. Observe and explain the change in output.
+
+\item Write a program that creates three child processes. Each child should print its PID and the parent should display the total number of children created.
+
+\item Accept an integer from the user. The child process computes its square while the parent displays the original number.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Homework}
+
+\begin{enumerate}[resume]
+
+\item Write a program where the parent prints all even numbers from 1 to 20 and the child prints all odd numbers.
+
+\item Accept a number from the user. The child computes its factorial while the parent waits for the child to finish.
+
+\item Accept an array of integers. The child computes the sum of all elements while the parent computes the average.
+
+\item Write a program in which the child prints all prime numbers between 1 and 100 while the parent prints all composite numbers.
+
+\item Write a program that generates the Fibonacci sequence using the child process.
+
+\item Predict the output without executing.
+
+\begin{lstlisting}
+printf("A\n");
+fork();
+printf("B\n");
+fork();
+printf("C\n");
+\end{lstlisting}
+
+State the number of times A, B and C are printed.
+
+\item Determine the total number of processes created by the following program. Draw the process tree.
+
+\begin{lstlisting}
+fork();
+
+if(fork())
+    fork();
+\end{lstlisting}
+
+\item Predict the number of outputs produced by the following program.
+
+\begin{lstlisting}
+fork();
+
+if(fork())
+{
+    fork();
+}
+
+printf("OS Lab\n");
+\end{lstlisting}
+
+\item Write a program that recursively creates exactly ten processes. Each process should display:
+\begin{itemize}
+    \item PID
+    \item PPID
+    \item Level in the process tree
+\end{itemize}
+
+\item Create exactly fifteen processes using the minimum possible number of \texttt{fork()} calls.
+
+\item Create a complete binary process tree of height four using \texttt{fork()}.
+
+\item Determine the total number of processes created after the following program executes.
+
+\begin{lstlisting}
+fork();
+fork();
+fork();
+fork();
+\end{lstlisting}
+
+Also derive the general formula for the number of processes created after \(n\) successive \texttt{fork()} calls.
+
+\end{enumerate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Discussion Questions}
+
+\begin{enumerate}
+
+\item Why does the \texttt{fork()} system call return twice?
+
+\item What are the possible return values of \texttt{fork()}?
+
+\item Explain the difference between the parent and child process.
+
+\item What happens if \texttt{fork()} fails?
+
+\item What is the purpose of the \texttt{wait()} system call?
+
+\item Explain the concepts of orphan and zombie processes.
+
+\item What is Copy-on-Write (CoW) and why is it used in \texttt{fork()}?
+
+\item Differentiate between \texttt{fork()} and \texttt{exec()}.
+
+\item Why is \texttt{getppid()} useful?
+
+\item Explain how the operating system schedules the parent and child processes after a \texttt{fork()} call.
+
+\end{enumerate}
+
+\end{document}
